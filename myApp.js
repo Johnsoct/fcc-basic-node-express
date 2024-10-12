@@ -1,5 +1,7 @@
-const express = require('express');
-const app = express();
+require('dotenv').config()
+
+const express = require('express')
+const app = express()
 
 app.use('/public', express.static(`${__dirname}/public`))
 
@@ -8,7 +10,14 @@ app.get('/', function (req, res) {
 })
 
 app.get('/json', function (req, res) {
-  res.json({ message: 'Hello json' })
+  let message = 'Hello json'
+  let messageStyle = process.env.MESSAGE_STYLE
+
+  if (messageStyle === 'uppercase') {
+    message = message.toUpperCase()
+  }
+
+  res.json({ message, })
 })
 
-module.exports = app;
+module.exports = app
